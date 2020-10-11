@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title><?= $judul; ?></title>
-	<link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css'); ?>">
+	<link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.css'); ?>">
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">

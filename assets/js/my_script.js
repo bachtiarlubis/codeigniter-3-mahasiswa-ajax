@@ -61,7 +61,7 @@ $(function(){
 });
 
 // Fungsi konfirmasi proses sweetalert2
-var sweetConfirm = (pesan, btnConf, url) => {
+var sweetConfirm = (pesan, btnConf, frmId) => {
 	var confBtnTxt = ucwordsJs(btnConf);
 	
 	// var tipe = ['success', 'warning', 'error', 'question', 'info'];
@@ -79,9 +79,21 @@ var sweetConfirm = (pesan, btnConf, url) => {
 		reverseButtons: true
 	}).then((result) => {
   		if (result.isConfirmed) {
- 			window.location.replace(url);   		
+ 			$("#"+frmId).submit();
+ 			// sweetAlert('Data selesai diproses !');
   		}
 	});			
+}
+
+var sweetAlert = (pesan, title='berhasil', status='success') => {
+	// status = 'success', 'danger', 'warning', 'info'
+	title = ucwordsJs(title);
+	pesan = ucwordsJs(pesan);
+	Swal.fire(
+	  title,
+	  pesan,
+	  status
+	)
 }
 
 // Fungsi uppercase huruf pertama dari suatu kata
