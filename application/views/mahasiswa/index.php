@@ -24,6 +24,23 @@
 		</div>
 	</div>
 
+	<div class="row mt-2">
+		<div class="col-lg-6">
+			<?php if($this->session->flashdata('status') == 'success'): ?>
+				<!-- otomatis unset session setelah digunakan -->
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					<p><?php echo $this->session->flashdata('pesan'); ?></p>
+				</div>
+			<?php elseif($this->session->flashdata('status') == 'danger'): ?>
+				<!-- otomatis unset session setelah digunakan -->
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					<p><?php echo $this->session->flashdata('pesan'); ?></p>
+				</div>
+			<?php endif; ?>
+	
+		</div>
+	</div>
+
 	<div class="row mt-3">
 		<div class="col-md-6">
 			<h3 class="mt-1">Daftar Mahasiswa</h3>
@@ -37,9 +54,11 @@
 			  				$attributes = [ 
 			  					'id' => $frmId
 			  				];
-			  				// set input hidden type with name="id_mhs" value="<?= $mhs->id; ?"
+			  				// set input hidden type with name="id_mhs" value="<?= html_escape($mhs->id); ?"
 			  				$hidden = [
-			  					'id_mhs' => $mhs->id
+			  					'id_mhs' => html_escape($mhs->id),
+			  					'nim_mhs' => html_escape($mhs->nim),
+			  					'nama_mhs' => html_escape($mhs->nama)
 			  				];
 			  			?>
 			  			<a href="#" onclick="sweetConfirm('Hapus data mahasiswa <?= $mhs->nama; ?> dengan nim <?= $mhs->nim ?>', 'Hapus', '<?= $frmId; ?>');" class="badge badge-danger badge-pill float-right ml-1">hapus</a>
@@ -49,8 +68,9 @@
 				  		<a href="<?= base_url("mahasiswa/detail/".$mhs->id); ?>" class="badge badge-primary badge-pill float-right ml-1">detail</a>
 		  			</li>
 		  			<?php
+		  				// Generate form fields hapus data mahasiswa
 		  				echo form_open('mahasiswa/hapus', $attributes, $hidden);
-		  				echo "</form>";
+		  				echo form_close();
 		  			?>
 			  	<?php endforeach; ?>
 			</ul>

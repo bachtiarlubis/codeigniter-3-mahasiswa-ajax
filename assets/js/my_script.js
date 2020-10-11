@@ -39,13 +39,13 @@ $(function(){
 			},
 		})
 		.done(function(data) {
-			// console.log(data.mhs);
+			// console.log(data.mahasiswa);
 			// set nilai input form di modal
-			$('#id_mhs').val(data.mhs.id);
-			$('#nama').val(data.mhs.nama);
-			$('#nim').val(data.mhs.nim);
-			$('#email').val(data.mhs.email);
-			$('#id_jurusan').val(data.mhs.id_jurusan);
+			$('#id_mhs').val(data.mahasiswa.id);
+			$('#nama').val(data.mahasiswa.nama);
+			$('#nim').val(data.mahasiswa.nim);
+			$('#email').val(data.mahasiswa.email);
+			$('#id_jurusan').val(data.mahasiswa.id_jurusan);
 
 		})
 		.fail(function(err) {
