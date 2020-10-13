@@ -36,7 +36,7 @@
 		public function cari(){
 			$keywoard = $this->input->post('keywoard');
 			$data = [
-				"judul" => "Daftar Mahasiswa",
+				"judul" => "Cari Mahasiswa",
 				"mahasiswa" => $this->Mahasiswa_model->getMahasiswaByName($keywoard),
 				"jurusan" => $this->Jurusan_model->getAllJurusan()
 			];
@@ -61,7 +61,7 @@
 				// alert it we failed
 				// set session
 				$this->session->set_flashdata('status', 'danger');
-				$this->session->set_flashdata('pesan', 'Data <b>'.$_POST["nim"].' '.$_POST["nama"].'</b> gagal dihapus');
+				$this->session->set_flashdata('pesan', 'Data <b>'.$_POST["nim"].' '.$_POST["nama"].'</b> gagal ditambahkan');
 
 				// redirect ke method index()
 				// header("location:".base_url("mahasiswa/index"));
@@ -107,6 +107,29 @@
 		}
 
 		public function ubah(){
-			
+			$postData = $this->input->post();
+			$updateData = $this->Mahasiswa_model->ubahDataMahasiswa($postData);
+			if ($updateData !== false) {
+				
+				// set session
+				$this->session->set_flashdata('status', 'success');
+				$this->session->set_flashdata('pesan', 'Data <b>'.$_POST["nim"].' '.$_POST["nama"].'</b> berhasil diubah');
+
+				// redirect ke method index()
+				// header("location:".base_url("mahasiswa/index"));
+				redirect('mahasiswa/index');
+			}else{
+				// alert it we failed
+				// set session
+				$this->session->set_flashdata('status', 'danger');
+				$this->session->set_flashdata('pesan', 'Data <b>'.$_POST["nim"].' '.$_POST["nama"].'</b> gagal diubah');
+
+				/*var_dump($postData);
+				var_dump($updateData);*/
+
+				// redirect ke method index()
+				// header("location:".base_url("mahasiswa/index"));
+				redirect('mahasiswa/index');
+			}
 		}
 	}

@@ -14,22 +14,22 @@
 
 		public function getMahasiswaById($id){
 
-			$this->db->select("*");
+			$this->db->select("{$this->tbl_mahasiswa}.*, {$this->ref_jurusan}.jurusan, {$this->ref_fakultas}.fakultas");
 		    $this->db->from($this->tbl_mahasiswa);
-		    $this->db->join($this->ref_jurusan, "tbl_mahasiswa.id_jurusan = {$this->ref_jurusan}.id", 'inner');
+		    $this->db->join($this->ref_jurusan, "{$this->tbl_mahasiswa}.id_jurusan = {$this->ref_jurusan}.id", 'inner');
 		    $this->db->join($this->ref_fakultas, "{$this->ref_jurusan}.id_fakultas = {$this->ref_fakultas}.id", 'inner');
-		    $this->db->where('tbl_mahasiswa.id', $id );
+		    $this->db->where("{$this->tbl_mahasiswa}.id", $id );
 		    $query = $this->db->get();
 		    return $query->row();
 		}
 
 		public function getMahasiswaByName($name){
 
-			$this->db->select("*");
+			$this->db->select("{$this->tbl_mahasiswa}.*");
 		    $this->db->from($this->tbl_mahasiswa);
-		    $this->db->join($this->ref_jurusan, "tbl_mahasiswa.id_jurusan = {$this->ref_jurusan}.id", 'inner');
+		    $this->db->join($this->ref_jurusan, "{$this->tbl_mahasiswa}.id_jurusan = {$this->ref_jurusan}.id", 'inner');
 		    $this->db->join($this->ref_fakultas, "{$this->ref_jurusan}.id_fakultas = {$this->ref_fakultas}.id", 'inner');
-		    $this->db->like('tbl_mahasiswa.nama', $name);
+		    $this->db->like("{$this->tbl_mahasiswa}.nama", $name);
 		    $query = $this->db->get();
 		    return $query->result();
 		}
@@ -50,7 +50,37 @@
 				'id' => $id
 			];
 
-			return $this->db->delete($this->tbl_mahasiswa, $data);
+			$this->db->delete($this->tbl_mahasiswa, $data);
+
+			$updated_status = $this->db->affected_rows();
+			if ($updated_status) {
+				return $id;
+			}else{
+				return false;
+			}
+		}
+
+		public function ubahDataMahasiswa($postData){
+			$id =  $postData["id_mhs"];
+			$data = array(
+		        'nama' => $postData["nama"],
+		        'nim' => $postData["nim"],
+		        'email' => $postData["email"],
+		        'id_jurusan' => $postData["id_jurusan"]
+			);
+
+			// $this->db->where('id', $id);
+			// $this->db->update($this->tbl_mahasiswa, $data, ['id'=> $id]);
+			$this->db->set($data);
+			$this->db->where('id', $id);
+			$this->db->update($this->tbl_mahasiswa, $data);
+			
+			$updated_status = $this->db->affected_rows();
+			if ($updated_status) {
+				return $id;
+			}else{
+				return false;
+			}
 		}
 
 	}

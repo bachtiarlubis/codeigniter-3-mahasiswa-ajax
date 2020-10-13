@@ -64,7 +64,7 @@
 			  			<a href="#" onclick="sweetConfirm('Hapus data mahasiswa <?= $mhs->nama; ?> dengan nim <?= $mhs->nim ?>', 'Hapus', '<?= $frmId; ?>');" class="badge badge-danger badge-pill float-right ml-1">hapus</a>
 			  			
 				  		<!-- proses ubah ada di js/my_script.js -->
-			  			<a href="" class="badge badge-warning badge-pill float-right ml-1 tampilModalUbah" data-toggle="modal" data-target="#formModal" data-idmhs="<?= $mhs->id; ?>" data-urlgetdata="<?= base_url("mahasiswa/getdata"); ?>" data-urlaction="<?= base_url("mahasiswa/ubah"); ?>">ubah</a>
+			  			<a href="" class="badge badge-warning badge-pill float-right ml-1 tampilModalUbah" data-toggle="modal" data-target="#formModal" data-idmhs="<?= $mhs->id; ?>" data-urlgetdata="<?= base_url("mahasiswa/getdata"); ?>" data-urlaction="<?= base_url("mahasiswa/ubah"); ?>/nama/nim/email/id_jurusan">ubah</a>
 				  		<a href="<?= base_url("mahasiswa/detail/".$mhs->id); ?>" class="badge badge-primary badge-pill float-right ml-1">detail</a>
 		  			</li>
 		  			<?php

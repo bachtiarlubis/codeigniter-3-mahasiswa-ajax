@@ -20,13 +20,19 @@ $(function(){
 		// ambil value dari attribute data-urlaction
 		const action = $(this).data('urlaction');
 
+		const ubahOnclick = "return confirm('Anda ingin merubah data ini ?');";
+
 		// ganti judul modal
 		$("#judulModal").html('Ubah Data Mahasiswa');
 		// ganti text tombol submit
 		$('.modal-footer button[type=submit]').html('Ubah Data');
 		// ganti url action dari element form modal
 		$('.modal-content form').attr({
-			action: action,
+			action: action
+		});
+		// ganti onclick modal
+		$('.modal-content form button[type=submit]').attr({
+			onclick: ubahOnclick
 		});
 		
 		// Ajax untuk memuat data mahasiswa di modal
@@ -39,7 +45,7 @@ $(function(){
 			},
 		})
 		.done(function(data) {
-			// console.log(data.mahasiswa);
+			console.log(data.mahasiswa);
 			// set nilai input form di modal
 			$('#id_mhs').val(data.mahasiswa.id);
 			$('#nama').val(data.mahasiswa.nama);
